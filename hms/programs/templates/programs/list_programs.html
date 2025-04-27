@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Programs</title>
+</head>
+<body>
+    <h1>Existing Health Programs</h1>
+
+    <form method="get" action="{% url 'list-programs' %}">
+        <input type="text" name="q" placeholder="Search programs..." value="{{ query|default:'' }}">
+        <button type="submit">Search</button>
+        {% if query %}
+            <a href="{% url 'list-programs' %}">Clear</a>
+        {% endif %}
+    </form>
+
+    <ul>
+        {% for program in programs %}
+            <li>{{ program.name }} - {{ program.description }}</li>
+        {% empty %}
+            <li>No health programs available.</li>
+        {% endfor %}
+    </ul>
+
+    <br>
+    <a href="{% url 'add-program' %}">Add New Program</a>
+</body>
+</html>

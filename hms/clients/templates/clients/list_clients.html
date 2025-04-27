@@ -1,0 +1,30 @@
+<h1>Registered Clients</h1>
+
+<form method="get" action="{% url 'list_clients' %}">
+    <input type="text" name="q" placeholder="Search clients..." value="{{ query|default:'' }}">
+    <button type="submit">Search</button>
+    {% if query %}
+        <a href="{% url 'list_clients' %}">Clear</a>
+    {% endif %}
+</form>
+
+<ul>
+  {% for client in clients %}
+    <li>
+      <strong>{{ client.full_name }}</strong> ({{ client.phone_number }})<br>
+      Enrolled Programs:
+      <ul>
+        {% for program in client.enrolled_programs.all %}
+          <li>{{ program.name }}</li>
+        {% empty %}
+          <li>No programs enrolled</li>
+        {% endfor %}
+      </ul>
+
+      <a href="{% url 'edit_client' client.id %}">Edit</a> |
+      <a href="{% url 'delete_client' client.id %}">Delete</a>
+    </li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'add_client' %}">Add New Client</a>
