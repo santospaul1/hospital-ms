@@ -7,7 +7,7 @@ class HealthProgramSerializer(serializers.ModelSerializer):
         model = HealthProgram
         fields = ['id', 'name', 'description']
 
-    class ClientSerializers(serializers.ModelSerializer):
+class ClientSerializers(serializers.ModelSerializer):
         enrolled_programs = HealthProgramSerializer(many=True)
 
         class Meta:

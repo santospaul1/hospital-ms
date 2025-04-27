@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from rest_framework import generics
-from clients.models import ClientSerializer
-
+from .serializers import ClientSerializers
+from clients.models import Client
 
 class ClientProfileView(generics.RetrieveAPIView):
     queryset = Client.objects.all()
-    serializer_class = ClientSerializer
+    serializer_class = ClientSerializers
 
     def get_object(self):
         return self.request.user.client
